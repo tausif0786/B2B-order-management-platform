@@ -1,75 +1,251 @@
 # Northstar Commerce — B2B Order Management Platform
 
-A portfolio-ready full-stack B2B distributor ordering application built for the Arrowstack Project 1 brief.
+A full-stack B2B Order Management Platform designed to simplify business purchasing, inventory management, order processing, and customer operations.
+
+Built using React, Vite, Node.js, Express.js, and MySQL.
 
 ## Features
-- JWT authentication, bcrypt password hashing and customer/admin roles
-- Product catalogue, search, SKU/category data and admin inventory management
-- Stock adjustment with non-negative stock protection
-- Customer cart and order placement with database transactions and row-level stock locking
-- GST estimate (18%), order lifecycle and automatic invoice record creation
-- Admin dashboard metrics, low-stock visibility, recent orders and activity audit log
-- REST API, request validation with Zod, Helmet security headers, CORS and rate limiting
 
-## Stack and documented alternative
-React + Vite frontend, Node.js + Express REST API, MySQL database, JWT/bcrypt authentication. The internship brief recommends PostgreSQL but explicitly permits reasonable alternatives when documented. MySQL is used here as an accessible relational database; the schema uses standard relational design, foreign keys, constraints and indexes.
+### Authentication & User Management
+- JWT-based authentication
+- Secure password hashing using bcrypt
+- Role-based access control for Admin and Customers
+- Customer registration and login
+- Customer management
+
+### Product & Inventory Management
+- Product catalogue with search and category information
+- Product and inventory management for administrators
+- Stock adjustment and non-negative stock protection
+- Automatic stock deduction during order placement
+
+### Order Management
+- Shopping cart and checkout
+- Order placement with database transactions
+- Order tracking and status management
+- Order cancellation request workflow
+- Admin approval and rejection of cancellation requests
+- Stock restoration after approved cancellations
+
+### Invoice & Refund Management
+- Automatic invoice record creation
+- Downloadable PDF invoices
+- GST calculation (18% demo estimate)
+- Refund record management and status updates
+
+### Admin Dashboard
+- Dashboard metrics and order summaries
+- Low-stock visibility
+- Recent orders
+- Customer management
+- Activity audit log
+
+### Security & API
+- RESTful API architecture
+- Request validation using Zod
+- Helmet security headers
+- CORS configuration
+- API rate limiting
+- JWT-protected routes
+
+## Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React, Vite, JavaScript |
+| Styling | CSS, Tailwind CSS |
+| Backend | Node.js, Express.js |
+| Database | MySQL |
+| Authentication | JWT, bcrypt |
+| Validation | Zod |
+| PDF Generation | PDFKit |
+| API Communication | Fetch API |
+
+## Project Structure
+
+```text
+b2b-order-management/
+│
+├── backend/
+│   ├── migrations/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── middleware/
+│   │   ├── routes/
+│   │   └── utils/
+│   ├── .env.example
+│   ├── package.json
+│   └── seed.sql
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   └── pages/
+│   └── package.json
+│
+├── .gitignore
+├── README.md
+├── package.json
+└── package-lock.json
+```
 
 ## Requirements
-- Node.js 20+
-- MySQL 8+
 
-## Setup
-1. Create a MySQL database by running `backend/migrations/001_init.sql` in MySQL Workbench. The script creates `b2b_order_management` and its tables.
-2. In `backend`, copy `.env.example` to `.env` and set your MySQL password plus a long random `JWT_SECRET`.
-3. Create the demo admin account once. From the project root run:
+- Node.js 20 or later
+- MySQL 8 or later
+- npm
+- Git
+
+## Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/tausif0786/B2B-order-management-platform.git
+cd B2B-order-management-platform
+```
+
+### 2. Configure MySQL Database
+
+Open MySQL Workbench and execute:
+
+```text
+backend/migrations/001_init.sql
+```
+
+This initializes the database and required tables.
+
+Next, execute:
+
+```text
+backend/seed.sql
+```
+
+This loads the sample product catalogue.
+
+### 3. Configure Backend Environment
+
+Navigate to the backend directory:
 
 ```bash
 cd backend
-npm install
-node --env-file=.env -e "import('mysql2/promise').then(async m=>{const bcrypt=(await import('bcryptjs')).default;const c=await m.createConnection({host:process.env.DB_HOST||'localhost',user:process.env.DB_USER||'root',password:process.env.DB_PASSWORD||'',database:process.env.DB_NAME||'b2b_order_management'});const h=await bcrypt.hash('Admin@12345',12);await c.execute('INSERT INTO users(name,email,password_hash,role,company_name) VALUES(?,?,?,?,?) ON DUPLICATE KEY UPDATE role='admin'',['Northstar Admin','admin@northstar.demo',h,'admin','Northstar Distribution']);await c.end();console.log('Demo admin ready')})"
 ```
 
-Also run `backend/seed.sql` in MySQL Workbench to load the sample product catalogue.
+Install dependencies:
 
-4. Start backend: `npm run dev` (from `backend`).
-5. In a second terminal, start frontend: `cd frontend && npm install && npm run dev`.
-6. Open the Vite URL, normally `http://localhost:5173`.
+```bash
+npm install
+```
 
-Demo admin: `admin@northstar.demo` / `Admin@12345`. Change this password before any shared or deployed demo. Customer accounts can be registered from the sign-in screen.
+Copy `.env.example` to `.env` and configure your database credentials and JWT secret.
 
-## Environment
-Backend variables are documented in `backend/.env.example`. For a deployed frontend set `VITE_API_URL` to the deployed API base URL, e.g. `https://your-api.example.com/api`.
+### 4. Start Backend
 
-## Main API routes
-| Method | Route | Access | Purpose |
+```bash
+npm run dev
+```
+
+Backend normally runs at:
+
+```text
+http://localhost:5000
+```
+
+### 5. Start Frontend
+
+Open a second terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open the Vite development URL:
+
+```text
+http://localhost:5173
+```
+
+## Environment Variables
+
+Backend configuration is provided in `backend/.env.example`.
+
+Important variables:
+
+- PORT
+- NODE_ENV
+- CLIENT_ORIGIN
+- DB_HOST
+- DB_PORT
+- DB_USER
+- DB_PASSWORD
+- DB_NAME
+- JWT_SECRET
+- JWT_EXPIRES_IN
+
+For deployment, configure the frontend API URL using `VITE_API_URL`.
+
+Never commit actual environment files, passwords, or production secrets.
+
+## Main API Routes
+
+| Method | Endpoint | Access | Purpose |
 |---|---|---|---|
-| POST | `/api/auth/register` | Public | Customer registration |
-| POST | `/api/auth/login` | Public | Login |
-| GET | `/api/auth/me` | Authenticated | Current user |
-| GET | `/api/products` | Public | Product catalogue/search |
-| POST/PUT | `/api/products` or `/api/products/:id` | Admin | Create/update product |
-| PATCH | `/api/products/:id/stock` | Admin | Adjust inventory |
-| GET | `/api/orders` | Authenticated | Own orders / all orders for admin |
-| POST | `/api/orders` | Customer | Place order |
-| PATCH | `/api/orders/:id/status` | Admin | Update order status |
-| GET | `/api/dashboard/summary` | Admin | Dashboard KPIs |
-| GET | `/api/dashboard/activity` | Admin | Audit trail |
+| POST | /api/auth/register | Public | Customer registration |
+| POST | /api/auth/login | Public | User login |
+| GET | /api/auth/me | Authenticated | Current user |
+| GET | /api/products | Public | Product catalogue |
+| POST | /api/products | Admin | Create product |
+| PUT | /api/products/:id | Admin | Update product |
+| PATCH | /api/products/:id/stock | Admin | Adjust inventory |
+| GET | /api/orders | Authenticated | Retrieve orders |
+| POST | /api/orders | Customer | Place order |
+| GET | /api/orders/:id/invoice | Authorized | Download PDF invoice |
+| PATCH | /api/orders/:id/status | Admin | Update order status |
+| GET | /api/dashboard/summary | Admin | Dashboard statistics |
+| GET | /api/dashboard/activity | Admin | Activity audit log |
 
-## Important demo limitations / next steps
-- Checkout asks for a shipping address in the demo. Replace the browser prompt with a validated checkout form before a live deployment.
-- Invoice records are created in the database; a downloadable PDF invoice endpoint is a recommended next enhancement.
-- GST is a configurable demo estimate at 18%; confirm the applicable tax rules before real commercial use.
-- Add automated API tests, password reset, email verification, pagination, Docker deployment, production secrets management and CI before production use.
-- The demo seed account should be changed and never used as a production credential.
+Additional customer cancellation and refund management routes are implemented in the application.
 
-## Suggested test walkthrough
-1. Sign in as admin and review the dashboard.
-2. Register a customer in a second browser/incognito session.
-3. As admin, create products using the API or add seed products in MySQL.
-4. As customer, add products to cart and place an order.
-5. As admin, confirm the order, move it through processing/shipped/delivered.
-6. Check stock reduction, invoice row and activity log in MySQL/admin UI.
-7. Attempt an order quantity greater than stock and confirm it is rejected without partial stock changes.
+## Important Notes & Future Improvements
 
-## Suggested GitHub presentation
-Use a clean repository name such as `b2b-order-management-platform`. Add screenshots of the admin dashboard, catalogue, order table and audit trail after running the app. Do not commit `.env`, passwords or real customer data.
+- Checkout currently uses a demo shipping-address prompt. A validated checkout form would improve the experience.
+- GST is a configurable demo estimate of 18%. Verify applicable tax rules before commercial use.
+- Automated API tests and frontend tests can improve reliability.
+- Password reset and email verification can be added in future versions.
+- Pagination and production deployment configuration can be further improved.
+- Refund status management is provided; actual payment transfers are not performed by the demo application.
+
+## Suggested Test Workflow
+
+1. Sign in as an administrator and review the dashboard.
+2. Register customer accounts.
+3. Browse products and manage inventory.
+4. Add products to the cart and place orders.
+5. Verify stock deduction after order placement.
+6. Update order statuses through the admin dashboard.
+7. Submit and process cancellation requests.
+8. Verify stock restoration after approved cancellations.
+9. Download and verify PDF invoices.
+10. Review customer orders and dashboard activity.
+
+## Security Considerations
+
+- Keep `.env` files out of version control.
+- Use strong JWT secrets.
+- Never publish passwords or private credentials.
+- Use HTTPS and production environment variables when deploying.
+- Do not use demo credentials for production accounts.
+
+## Author
+
+**Tausif Aman**
+
+GitHub: https://github.com/tausif0786
+
+---
+
+*Northstar Commerce — Streamlining Business Ordering and Operations.*
