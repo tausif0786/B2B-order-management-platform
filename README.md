@@ -2,7 +2,7 @@
 
 A full-stack B2B Order Management Platform designed to simplify business purchasing, inventory management, order processing, and customer operations.
 
-Built using React, Vite, Node.js, Express.js, and MySQL.
+Built using **React, Vite, Node.js, Express.js, and MySQL**.
 
 ## Features
 
@@ -21,7 +21,7 @@ Built using React, Vite, Node.js, Express.js, and MySQL.
 
 ### Order Management
 - Shopping cart and checkout
-- Order placement with database transactions
+- Order placement using database transactions
 - Order tracking and status management
 - Order cancellation request workflow
 - Admin approval and rejection of cancellation requests
@@ -35,6 +35,7 @@ Built using React, Vite, Node.js, Express.js, and MySQL.
 
 ### Admin Dashboard
 - Dashboard metrics and order summaries
+- Revenue analytics and order distribution
 - Low-stock visibility
 - Recent orders
 - Customer management
@@ -50,9 +51,29 @@ Built using React, Vite, Node.js, Express.js, and MySQL.
 
 ## Application Screenshots
 
-### Admin Dashboard
+### 1. Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
 
-![Northstar Commerce Admin Dashboard](screenshots/admin-dashboard.png)
+### 2. Product Management
+![Product Management](screenshots/product-management.png)
+
+### 3. Order Management
+![Order Management](screenshots/order-management.png)
+
+### 4. Cancellation Requests
+![Cancellation Requests](screenshots/cancellation-requests.png)
+
+### 5. Customer Management — Analytics
+![Customer Management Analytics](screenshots/customer-management-1.png)
+
+### 6. Customer Management — Directory
+![Customer Management Directory](screenshots/customer-management-2.png)
+
+### 7. Activity Log
+![Activity Log](screenshots/activity-log.png)
+
+### 8. PDF Invoice
+![PDF Invoice](screenshots/invoice-pdf.png)
 
 ## Technology Stack
 
@@ -89,7 +110,14 @@ b2b-order-management/
 │   │   └── pages/
 │   └── package.json
 ├── screenshots/
-│   └── admin-dashboard.png
+│   ├── admin-dashboard.png
+│   ├── product-management.png
+│   ├── order-management.png
+│   ├── cancellation-requests.png
+│   ├── customer-management-1.png
+│   ├── customer-management-2.png
+│   ├── activity-log.png
+│   └── invoice-pdf.png
 ├── .gitignore
 ├── README.md
 ├── package.json
@@ -116,13 +144,17 @@ cd B2B-order-management-platform
 
 Open MySQL Workbench and execute:
 
-`backend/migrations/001_init.sql`
+```text
+backend/migrations/001_init.sql
+```
 
 This initializes the database and required tables.
 
 Next, execute:
 
-`backend/seed.sql`
+```text
+backend/seed.sql
+```
 
 This loads the sample product catalogue.
 
@@ -147,7 +179,9 @@ npm run dev
 
 Backend normally runs at:
 
-`http://localhost:5000`
+```text
+http://localhost:5000
+```
 
 ### 5. Start Frontend
 
@@ -161,7 +195,9 @@ npm run dev
 
 Open the Vite development URL:
 
-`http://localhost:5173`
+```text
+http://localhost:5173
+```
 
 ## Environment Variables
 
@@ -238,7 +274,7 @@ Additional cancellation and refund management functionality is available in the 
 
 **Tausif Aman**
 
-GitHub: [tausif0786](https://github.com/tausif0786)
+GitHub: https://github.com/tausif0786
 
 ---
 
