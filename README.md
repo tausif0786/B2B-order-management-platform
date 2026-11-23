@@ -48,6 +48,12 @@ Built using React, Vite, Node.js, Express.js, and MySQL.
 - API rate limiting
 - JWT-protected routes
 
+## Application Screenshots
+
+### Admin Dashboard
+
+![Northstar Commerce Admin Dashboard](screenshots/admin-dashboard.png)
+
 ## Technology Stack
 
 | Layer | Technologies |
@@ -65,7 +71,6 @@ Built using React, Vite, Node.js, Express.js, and MySQL.
 
 ```text
 b2b-order-management/
-│
 ├── backend/
 │   ├── migrations/
 │   ├── src/
@@ -76,7 +81,6 @@ b2b-order-management/
 │   ├── .env.example
 │   ├── package.json
 │   └── seed.sql
-│
 ├── frontend/
 │   ├── public/
 │   ├── src/
@@ -84,7 +88,8 @@ b2b-order-management/
 │   │   ├── lib/
 │   │   └── pages/
 │   └── package.json
-│
+├── screenshots/
+│   └── admin-dashboard.png
 ├── .gitignore
 ├── README.md
 ├── package.json
@@ -111,17 +116,13 @@ cd B2B-order-management-platform
 
 Open MySQL Workbench and execute:
 
-```text
-backend/migrations/001_init.sql
-```
+`backend/migrations/001_init.sql`
 
 This initializes the database and required tables.
 
 Next, execute:
 
-```text
-backend/seed.sql
-```
+`backend/seed.sql`
 
 This loads the sample product catalogue.
 
@@ -131,17 +132,14 @@ Navigate to the backend directory:
 
 ```bash
 cd backend
-```
-
-Install dependencies:
-
-```bash
 npm install
 ```
 
-Copy `.env.example` to `.env` and configure your database credentials and JWT secret.
+Copy `.env.example` to `.env` and configure your database credentials and a strong random JWT secret.
 
 ### 4. Start Backend
+
+From the backend directory:
 
 ```bash
 npm run dev
@@ -149,13 +147,11 @@ npm run dev
 
 Backend normally runs at:
 
-```text
-http://localhost:5000
-```
+`http://localhost:5000`
 
 ### 5. Start Frontend
 
-Open a second terminal:
+Open a second terminal from the project root:
 
 ```bash
 cd frontend
@@ -165,9 +161,7 @@ npm run dev
 
 Open the Vite development URL:
 
-```text
-http://localhost:5173
-```
+`http://localhost:5173`
 
 ## Environment Variables
 
@@ -194,27 +188,27 @@ Never commit actual environment files, passwords, or production secrets.
 
 | Method | Endpoint | Access | Purpose |
 |---|---|---|---|
-| POST | /api/auth/register | Public | Customer registration |
-| POST | /api/auth/login | Public | User login |
-| GET | /api/auth/me | Authenticated | Current user |
-| GET | /api/products | Public | Product catalogue |
-| POST | /api/products | Admin | Create product |
-| PUT | /api/products/:id | Admin | Update product |
-| PATCH | /api/products/:id/stock | Admin | Adjust inventory |
-| GET | /api/orders | Authenticated | Retrieve orders |
-| POST | /api/orders | Customer | Place order |
-| GET | /api/orders/:id/invoice | Authorized | Download PDF invoice |
-| PATCH | /api/orders/:id/status | Admin | Update order status |
-| GET | /api/dashboard/summary | Admin | Dashboard statistics |
-| GET | /api/dashboard/activity | Admin | Activity audit log |
+| POST | `/api/auth/register` | Public | Customer registration |
+| POST | `/api/auth/login` | Public | User login |
+| GET | `/api/auth/me` | Authenticated | Current user |
+| GET | `/api/products` | Public | Product catalogue |
+| POST | `/api/products` | Admin | Create product |
+| PUT | `/api/products/:id` | Admin | Update product |
+| PATCH | `/api/products/:id/stock` | Admin | Adjust inventory |
+| GET | `/api/orders` | Authenticated | Retrieve orders |
+| POST | `/api/orders` | Customer | Place order |
+| GET | `/api/orders/:id/invoice` | Authorized | Download PDF invoice |
+| PATCH | `/api/orders/:id/status` | Admin | Update order status |
+| GET | `/api/dashboard/summary` | Admin | Dashboard statistics |
+| GET | `/api/dashboard/activity` | Admin | Activity audit log |
 
-Additional customer cancellation and refund management routes are implemented in the application.
+Additional cancellation and refund management functionality is available in the application.
 
 ## Important Notes & Future Improvements
 
 - Checkout currently uses a demo shipping-address prompt. A validated checkout form would improve the experience.
 - GST is a configurable demo estimate of 18%. Verify applicable tax rules before commercial use.
-- Automated API tests and frontend tests can improve reliability.
+- Automated API and frontend tests can improve reliability.
 - Password reset and email verification can be added in future versions.
 - Pagination and production deployment configuration can be further improved.
 - Refund status management is provided; actual payment transfers are not performed by the demo application.
@@ -244,7 +238,7 @@ Additional customer cancellation and refund management routes are implemented in
 
 **Tausif Aman**
 
-GitHub: https://github.com/tausif0786
+GitHub: [tausif0786](https://github.com/tausif0786)
 
 ---
 
